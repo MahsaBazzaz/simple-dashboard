@@ -6,12 +6,55 @@
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/login-page.css">
-    <link rel="shortcut icon" type="image/x-icon" href="./assets/img/Icons8-Windows-8-User-Interface-Login.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="./assets/img/Treetog-I-Control-Panel.ico"/>
 </head>
 <body>
-
+<div class="container">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#news">خبرها</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#analysis">تایید تحلیل ها</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#instagram">تایید اینستاگرام</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#telegram">تایید تلگرام</a>
+        </li>
+    </ul>
+    <nav class="navbar float-lg-right">
+        <form class="form-inline" action="">
+            <label>
+                <input class="form-control mr-sm-2" type="text" placeholder="جستجو">
+            </label>
+            <button class="btn btn-success" type="submit">جستجو</button>
+        </form>
+    </nav>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="news" class="container tab-pane fade">
+            <h3>HOME</h3>
+            <h2></h2>
+        </div>
+        <div id="analysis" class="container tab-pane fade">
+            <h3>Menu 1</h3>
+            <h2></h2>
+        </div>
+        <div id="instagram" class="container tab-pane fade">
+            <h3>Menu 2</h3>
+            <h2></h2>
+        </div>
+        <div id="telegram" class="container tab-pane fade">
+            <h3>Menu 3</h3>
+            <h2></h2>
+        </div>
+    </div>
+</div>
 <script src="assets/javascript/jquery-1.12.4.min.js"></script>
 <script src="assets/javascript/bootstrap.min.js"></script>
-<script src="assets/javascript/login-page.js"></script>
+<script src="assets/javascript/dashboard.js"></script>
 </body>
 </html>
