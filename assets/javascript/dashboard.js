@@ -71,17 +71,19 @@ Tele =[
 let whichTab = null;
 let now = null;
 let prev =null;
+let theActiveElement = null;
 $(function () {
     $('.nav-tabs li:first-child a').tab('show')
 });
 
 $('.nav-tabs a').on('shown.bs.tab', function (event) {
     $("#searchString").val("");
+    $(".tab-content div a").removeClass('active');
     now = $(event.target).text();// active tab
     prev = $(event.relatedTarget);
     if (now === "خبرها") {
         whichTab = 0;
-        $("#news").append(
+        $("#news div").html(
             newsListGenerator(myItems))
     } else if (now === "تایید تحلیل ها") {
         whichTab = 1;
@@ -104,18 +106,22 @@ $('.nav-tabs a').on('shown.bs.tab', function (event) {
 function newsListGenerator(items) {
     let HTML = "<div class='list0 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
-        HTML += "<a class='list-group-item list-group-item-action'>";
+        HTML += "<a id='i"+ i+ "' class='list-group-item list-group-item-action'>";
         let tmp = items[i];
         HTML += "id:" + tmp.id +"<p></p>";
         HTML += "title:" + tmp.title +"<p></p>";
         HTML += "image:" + tmp.image+"<p></p>";
         HTML += "text:" + tmp.text+"<p></p>";
         HTML += "<input type=\"button\" class=\"btn btn-success float-left\" value=\"ویرایش\">";
-        HTML += "<input type=\"button\" class=\"btn btn-danger float-left\" value=\"حذف\">";
+        HTML += "<input type=\"button\" class=\"btn btn-danger float-left\" value=\"حذف\" data-toggle='modal' data-target=\"#myModal\" data-backdrop=\"static\">";
         HTML += "</a>";
-
-        $("")
     }
+    HTML += "<div class=\"modal\" id=\"myModal\">" +
+        "<div class=\"modal-dialog\">" +
+        "<div class=\"modal-content\">" +
+        "<div class=\"modal-body\">آیا از خذف اطمینان دارید؟</div>" +
+        "<div class=\"modal-footer\">" +
+        "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">بله</button></div></div></div></div>";
     HTML += "</div>";
     return HTML;
 }
@@ -171,6 +177,7 @@ $(document).ready(function(){
 });
 
 $(".tab-content").on('click', 'div a', function () {
+    theActiveElement = this.id;
     $(this).siblings().removeClass('active');
     $(this).toggleClass('active');
 });
@@ -180,8 +187,9 @@ $(".tab-content #news").on('click','div a input.btn-success',function () {
     $("#eddit").trigger('click');
 });
 
-$(".tab-content #news").on('click','div a input.btn-danger',function () {
-    //todo
+$(".tab-content #news").on('click','.modal .btn-danger',function () {
+    myItems.splice(theActiveElement.split("i").pop(),1);
+    $('.nav-tabs a').trigger('shown.bs.tab');
 });
 
 $("#cancel").on('click',function () {
