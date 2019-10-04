@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/login-page.css">
     <link rel="shortcut icon" type="image/x-icon" href="./assets/img/Treetog-I-Control-Panel.ico"/>
+    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
 </head>
 <body>
 <div class="container">
@@ -28,7 +29,7 @@
         </li>
 
     </ul>
-    <nav class="navbar float-lg-right">
+    <nav id="searchNav" class="navbar float-right">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="تایپ کنید" id="searchString">
             <div class="input-group-append">
@@ -38,10 +39,26 @@
     </nav>
     <!-- Tab panes -->
     <div class="tab-content">
-        <div id="news" class="container tab-pane fade"></div>
-        <div id="analysis" class="container tab-pane fade"></div>
-        <div id="instagram" class="container tab-pane fade"></div>
-        <div id="telegram" class="container tab-pane fade"></div>
+        <div id="news" class="container tab-pane fade">
+            <nav class="navbar align-content-center">
+                <button class="btn badge-info"><i class="fa fa-plus"></i></button>
+            </nav>
+        </div>
+        <div id="analysis" class="container tab-pane fade">
+            <nav class="navbar align-content-center">
+                <p class="text-white">1</p>
+            </nav>
+        </div>
+        <div id="instagram" class="container tab-pane fade">
+            <nav class="navbar align-content-center">
+                <p class="text-white">1</p>
+            </nav>
+        </div>
+        <div id="telegram" class="container tab-pane fade">
+            <nav class="navbar align-content-center">
+                <p class="text-white">1</p>
+            </nav>
+        </div>
         <div id="edit-news" class="container tab-pane fade">
             <div class="form-group">
                 <label for="id">id</label><input id="id" type="text" class="form-control">

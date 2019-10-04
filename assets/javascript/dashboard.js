@@ -81,21 +81,21 @@ $('.nav-tabs a').on('shown.bs.tab', function (event) {
     prev = $(event.relatedTarget);
     if (now === "خبرها") {
         whichTab = 0;
-        $("#news").html(
+        $("#news").append(
             newsListGenerator(myItems))
     } else if (now === "تایید تحلیل ها") {
         whichTab = 1;
-        $("#analysis").html(
+        $("#analysis").append(
             analysisListGenerator(Analysis)
         );
     } else if (now === "تایید اینستاگرام") {
         whichTab = 2;
-        $("#instagram").html(
+        $("#instagram").append(
             instaTeleListGenerator(Insta)
         );
     } else if (now === "تایید تلگرام") {
         whichTab = 3;
-        $("#telegram").html(
+        $("#telegram").append(
             instaTeleListGenerator(Tele)
         );
     }
@@ -176,13 +176,21 @@ $(".tab-content").on('click', 'div a', function () {
 });
 
 $(".tab-content #news").on('click','div a input.btn-success',function () {
+    $("#searchNav").addClass('d-none');
     $("#eddit").trigger('click');
 });
 
 $(".tab-content #news").on('click','div a input.btn-danger',function () {
-    //TODO
+    //todo
 });
 
 $("#cancel").on('click',function () {
     prev.trigger('click');
+    $("#searchNav").removeClass('d-none');
+});
+
+$("#ok").on('click',function () {
+    //todo
+    prev.trigger('click');
+    $("#searchNav").removeClass('d-none');
 });
