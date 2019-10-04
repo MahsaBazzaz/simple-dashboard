@@ -69,30 +69,34 @@ Tele =[
 ];
 ///////////////////////////////////////////////////////////////////////
 let whichTab = null;
+let now = null;
+let prev =null;
 $(function () {
     $('.nav-tabs li:first-child a').tab('show')
 });
+
 $('.nav-tabs a').on('shown.bs.tab', function (event) {
     $("#searchString").val("");
-    let x = $(event.target).text();         // active tab
-    if (x === "خبرها") {
+    now = $(event.target).text();// active tab
+    prev = $(event.relatedTarget);
+    if (now === "خبرها") {
         whichTab = 0;
         $("#news").html(
             newsListGenerator(myItems))
-    } else if (x === "تایید تحلیل ها") {
+    } else if (now === "تایید تحلیل ها") {
         whichTab = 1;
         $("#analysis").html(
             analysisListGenerator(Analysis)
         );
-    } else if (x === "تایید اینستاگرام") {
+    } else if (now === "تایید اینستاگرام") {
         whichTab = 2;
-        $("#instagram ul").html(
+        $("#instagram").html(
             instaTeleListGenerator(Insta)
         );
-    } else if (x === "تایید تلگرام") {
+    } else if (now === "تایید تلگرام") {
         whichTab = 3;
-        $("#telegram ul").html(
-            instaTeleeleListGenerator(Tele)
+        $("#telegram").html(
+            instaTeleListGenerator(Tele)
         );
     }
 });
@@ -116,9 +120,9 @@ function newsListGenerator(items) {
     return HTML;
 }
 function analysisListGenerator(items) {
-    let HTML = "<ul class='list1 list-group text-right'>";
+    let HTML = "<div class='list1 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
-        HTML += "<li class='list-group-item'>";
+        HTML += "<a class='list-group-item list-group-item-action'>";
         let tmp = items[i];
         HTML += "username:" + tmp.userName +"<p></p>";
         HTML += "title:" + tmp.title +"<p></p>";
@@ -126,32 +130,32 @@ function analysisListGenerator(items) {
         HTML += "text:" + tmp.text+"<p></p>";
         HTML += "<input type=\"button\" class=\"btn btn-success float-left\" value=\"تایید\">";
         HTML += "<input type=\"button\" class=\"btn btn-danger float-left\" value=\"رد\">";
-        HTML += "</li>";
+        HTML += "</a>";
 
         $("")
     }
-    HTML += "</ul>";
+    HTML += "</div>";
     return HTML;
 }
 
 function instaTeleListGenerator(items) {
     let HTML = null;
     if(whichTab === 2)
-        HTML = "<ul class='list2 list-group text-right'>";
+        HTML = "<div class='list2 list-group text-right'>";
     else if(whichTab ===3)
-        HTML = "<ul class='list3 list-group text-right'>";
+        HTML = "<div class='list3 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
-        HTML += "<li class='list-group-item'>";
+        HTML += "<a class='list-group-item list-group-item-action'>";
         let tmp = items[i];
         HTML += "username:" + tmp.userName +"<p></p>";
         HTML += "user id:" + tmp.userId+"<p></p>";
         HTML += "<input type=\"button\" class=\"btn btn-success float-left\" value=\"تایید\">";
         HTML += "<input type=\"button\" class=\"btn btn-danger float-left\" value=\"رد\">";
-        HTML += "</li>";
+        HTML += "</a>";
 
         $("")
     }
-    HTML += "</ul>";
+    HTML += "</div>";
     return HTML;
 }
 //id='listNewsItemNumber"+ i + "'
@@ -166,9 +170,19 @@ $(document).ready(function(){
     });
 });
 
-$(".tab-content #news").on('click', 'div a', function () {
+$(".tab-content").on('click', 'div a', function () {
     $(this).siblings().removeClass('active');
     $(this).toggleClass('active');
-    // $("#edit-news").toggleClass('d-none');
 });
 
+$(".tab-content #news").on('click','div a input.btn-success',function () {
+    $("#eddit").trigger('click');
+});
+
+$(".tab-content #news").on('click','div a input.btn-danger',function () {
+    //TODO
+});
+
+$("#cancel").on('click',function () {
+    prev.trigger('click');
+});

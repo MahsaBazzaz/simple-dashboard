@@ -23,6 +23,10 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#telegram">تایید تلگرام</a>
         </li>
+        <li class="nav-item d-none">
+            <a id="eddit" class="nav-link" data-toggle="tab" href="#edit-news"></a>
+        </li>
+
     </ul>
     <nav class="navbar float-lg-right">
         <div class="input-group">
@@ -38,13 +42,17 @@
         <div id="analysis" class="container tab-pane fade"></div>
         <div id="instagram" class="container tab-pane fade"></div>
         <div id="telegram" class="container tab-pane fade"></div>
+        <div id="edit-news" class="container tab-pane fade">
+            <div class="form-group">
+                <label for="id">id</label><input id="id" type="text" class="form-control">
+                <label for="title">title</label><input id="title" type="text" class="form-control">
+                <label for="image">image</label><input id="image" type="text" class="form-control">
+                <label for="news-text">text</label><input id="news-text" type="text" class="form-control">
+                <button id="cancel" class="btn badge-danger">cancel</button>
+                <button id="ok" class="btn badge-success">ok</button>
+            </div>
+        </div>
     </div>
-</div>
-<div id="edit-news" class="form-group d-none">
-    <label for="id">id</label><input id="id" type="text" class="form-control">
-    <label for="title">title</label><input id="title" type="text" class="form-control">
-    <label for="image">image</label><input id="image" type="text" class="form-control">
-    <label for="news-text">text</label><input id="news-text" type="text" class="form-control">
 </div>
 <script src="assets/javascript/jquery-1.12.4.min.js"></script>
 <script src="assets/javascript/bootstrap.min.js"></script>
