@@ -1,0 +1,36 @@
+
+function newItem(id, title, image, tags, isVip, level, typeId, icon, typeTilte, viewCount, likeCount, lang, sources, isLiked, state, date, text) {
+    this.id = id;
+    this.title = title;
+    this.image = image;
+    // this.tags = tags;
+    // this.isVip = isVip;
+    // this.level = null;
+    // this.typeId = null;
+    // this.icon = null;
+    // this.typeTitle = null;
+    // this.viewCount = null;
+    // this.likeCount = null;
+    // this.lang = null;
+    // this.sources = null;
+    // this.isLiked = null;
+    // this.state = null;
+    // this.date = null;
+    this.text = null;
+
+}
+
+let analysisItem = {
+    userName: null,
+    title: null,
+    score: null,
+    text: null,
+};
+let instagramItem = {
+    userName: null,
+    userId: null,
+};
+let telegramItem = {
+    userName: null,
+    userId: null,
+};

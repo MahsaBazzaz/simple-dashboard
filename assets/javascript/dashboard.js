@@ -1,81 +1,106 @@
 myItems = [
     {
         id: 1,
-        title: "خبر اول",
+        title: "first news",
         image: "./assets/img/1.jpg",
         text: "این متن خبر اول است"
     },
     {
         id: 2,
-        title: "خبر دوم",
+        title: "second news",
         image: "./assets/img/2.png",
         text: "این متن خبر دوم است"
     },
     {
         id: 3,
-        title: "خبر سوم",
+        title: "third news",
         image: "./assets/img/3.png",
         text: "این متن خبر سوم است"
     },
 ];
+Analysis =[
+    {
+        userName : "Mahsa",
+        title : "Mahsa opinion",
+        score : "100",
+        text : "Mahsa says",
+    },
+    {
+        userName : "Vahid",
+        title : "Vahid opinion",
+        score : "0",
+        text : "Vahid says",
+    },
+    {
+        userName : "Maryam",
+        title : "Maryam opinion",
+        score : "50",
+        text : "Maryam says",
+    }
+];
+Insta =[
+    {
+        userName : "Mahsa2",
+        userId : "MahsaBazzaz",
+    },
+    {
+        userName : "Vahid2",
+        userId : "VaidBazzaz"
+    },
+    {
+        userName : "Maryam2",
+        userId : "MaryamOstadi"
+    }
+];
 
-function newItem(id, title, image, tags, isVip, level, typeId, icon, typeTilte, viewCount, likeCount, lang, sources, isLiked, state, date, text) {
-    this.id = id;
-    this.title = title;
-    this.image = image;
-    // this.tags = tags;
-    // this.isVip = isVip;
-    // this.level = null;
-    // this.typeId = null;
-    // this.icon = null;
-    // this.typeTitle = null;
-    // this.viewCount = null;
-    // this.likeCount = null;
-    // this.lang = null;
-    // this.sources = null;
-    // this.isLiked = null;
-    // this.state = null;
-    // this.date = null;
-    this.text = null;
-
-}
-
-let analysisItem = {
-    userName: null,
-    title: null,
-    score: null,
-    text: null,
-};
-let instagramItem = {
-    userName: null,
-    userId: null,
-};
-let telegramItem = {
-    userName: null,
-    userId: null,
-};
+Tele =[
+    {
+        userName : "Mahsa",
+        userId : "MahsaBazzaz1",
+    },
+    {
+        userName : "Vahid",
+        userId : "VaidBazzaz1"
+    },
+    {
+        userName : "Maryam",
+        userId : "MaryamOstadi1"
+    }
+];
 ///////////////////////////////////////////////////////////////////////
+let whichTab = null;
 $(function () {
     $('.nav-tabs li:first-child a').tab('show')
 });
 $('.nav-tabs a').on('shown.bs.tab', function (event) {
+    $("#searchString").val("");
     let x = $(event.target).text();         // active tab
     if (x === "خبرها") {
+        whichTab = 0;
         $("#news").html(
             newsListGenerator(myItems))
     } else if (x === "تایید تحلیل ها") {
-        $("#analysis ul").text("menu1");
+        whichTab = 1;
+        $("#analysis").html(
+            analysisListGenerator(Analysis)
+        );
     } else if (x === "تایید اینستاگرام") {
-        $("#instagram ul").text("menu2");
+        whichTab = 2;
+        $("#instagram ul").html(
+            instaTeleListGenerator(Insta)
+        );
     } else if (x === "تایید تلگرام") {
-        $("#telegram ul").text("menu3");
+        whichTab = 3;
+        $("#telegram ul").html(
+            instaTeleeleListGenerator(Tele)
+        );
     }
 });
 
 function newsListGenerator(items) {
-    let HTML = "<ul class='list-group text-right'>";
+    let HTML = "<ul class='list0 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
-        HTML += "<li id='listNewsItemNumber"+ i + "' class='list-group-item'>";
+        HTML += "<li class='list-group-item'>";
         let tmp = items[i];
         HTML += "id:" + tmp.id +"<p></p>";
         HTML += "title:" + tmp.title +"<p></p>";
@@ -88,6 +113,56 @@ function newsListGenerator(items) {
         $("")
     }
     HTML += "</ul>";
-    console.log(HTML);
     return HTML;
 }
+function analysisListGenerator(items) {
+    let HTML = "<ul class='list1 list-group text-right'>";
+    for (let i = 0; i < items.length; i++) {
+        HTML += "<li class='list-group-item'>";
+        let tmp = items[i];
+        HTML += "username:" + tmp.userName +"<p></p>";
+        HTML += "title:" + tmp.title +"<p></p>";
+        HTML += "score:" + tmp.score+"<p></p>";
+        HTML += "text:" + tmp.text+"<p></p>";
+        HTML += "<input type=\"button\" class=\"btn btn-success float-left\" value=\"تایید\">";
+        HTML += "<input type=\"button\" class=\"btn btn-danger float-left\" value=\"رد\">";
+        HTML += "</li>";
+
+        $("")
+    }
+    HTML += "</ul>";
+    return HTML;
+}
+
+function instaTeleListGenerator(items) {
+    let HTML = null;
+    if(whichTab === 2)
+        HTML = "<ul class='list2 list-group text-right'>";
+    else if(whichTab ===3)
+        HTML = "<ul class='list3 list-group text-right'>";
+    for (let i = 0; i < items.length; i++) {
+        HTML += "<li class='list-group-item'>";
+        let tmp = items[i];
+        HTML += "username:" + tmp.userName +"<p></p>";
+        HTML += "user id:" + tmp.userId+"<p></p>";
+        HTML += "<input type=\"button\" class=\"btn btn-success float-left\" value=\"تایید\">";
+        HTML += "<input type=\"button\" class=\"btn btn-danger float-left\" value=\"رد\">";
+        HTML += "</li>";
+
+        $("")
+    }
+    HTML += "</ul>";
+    return HTML;
+}
+//id='listNewsItemNumber"+ i + "'
+
+$(document).ready(function(){
+    $("#searchString").on("keyup", function() {
+        let value = $(this).val().toLowerCase();
+        let where = ".list" + whichTab;
+        $( where + " li").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+});
+
