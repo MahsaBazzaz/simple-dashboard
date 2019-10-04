@@ -17,6 +17,12 @@ myItems = [
         image: "./assets/img/3.png",
         text: "این متن خبر سوم است"
     },
+    {
+        id: 4,
+        title: "fourth news",
+        image: "./assets/img/4.png",
+        text: "این متن خبر چهارم است"
+    },
 ];
 Analysis =[
     {
@@ -73,8 +79,8 @@ let now = null;
 let prev =null;
 let theActiveElement = null;
 $(function () {
-    $('.nav-tabs li:first-child a').tab('show');
-    whichTab = 0;
+    $('.nav-tabs li:last-child a').tab('show');
+    whichTab = 3;
 });
 
 $('.nav-tabs a').on('shown.bs.tab', function (event) {
@@ -83,21 +89,25 @@ $('.nav-tabs a').on('shown.bs.tab', function (event) {
     now = $(event.target).text();// active tab
     prev = $(event.relatedTarget);
     if (now === "خبرها") {
-        whichTab = 0;
+        $("#searchNav").removeClass('d-none');
+        whichTab = 3;
         $("#news div").html(
             newsListGenerator(myItems))
     } else if (now === "تایید تحلیل ها") {
-        whichTab = 1;
+        $("#searchNav").removeClass('d-none');
+        whichTab = 2;
         $("#analysis div").html(
             analysisListGenerator(Analysis)
         );
     } else if (now === "تایید اینستاگرام") {
-        whichTab = 2;
+        $("#searchNav").removeClass('d-none');
+        whichTab = 1;
         $("#instagram div").html(
             instaTeleListGenerator(Insta)
         );
     } else if (now === "تایید تلگرام") {
-        whichTab = 3;
+        $("#searchNav").removeClass('d-none');
+        whichTab = 0;
         $("#telegram div").html(
             instaTeleListGenerator(Tele)
         );
@@ -105,7 +115,7 @@ $('.nav-tabs a').on('shown.bs.tab', function (event) {
 });
 
 function newsListGenerator(items) {
-    let HTML = "<div class='list0 list-group text-right'>";
+    let HTML = "<div class='list3 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
         HTML += "<a id='i"+ i+ "' class='list-group-item list-group-item-action'>";
         let tmp = items[i];
@@ -128,7 +138,7 @@ function newsListGenerator(items) {
     return HTML;
 }
 function analysisListGenerator(items) {
-    let HTML = "<div class='list1 list-group text-right'>";
+    let HTML = "<div class='list2 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
         HTML += "<a class='list-group-item list-group-item-action'>";
         let tmp = items[i];
@@ -148,10 +158,10 @@ function analysisListGenerator(items) {
 
 function instaTeleListGenerator(items) {
     let HTML = null;
-    if(whichTab === 2)
-        HTML = "<div class='list2 list-group text-right'>";
-    else if(whichTab ===3)
-        HTML = "<div class='list3 list-group text-right'>";
+    if(whichTab === 0)
+        HTML = "<div class='list0 list-group text-right'>";
+    else if(whichTab ===1)
+        HTML = "<div class='list1 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
         HTML += "<a class='list-group-item list-group-item-action'>";
         let tmp = items[i];
@@ -193,13 +203,15 @@ $(".tab-content #news").on('click','.modal .btn-danger',function () {
     $("#news div").html(newsListGenerator(myItems));
 });
 
-$("#cancel").on('click',function () {
+$(".cancel").on('click',function () {
     prev.trigger('click');
-    $("#searchNav").removeClass('d-none');
 });
 
-$("#ok").on('click',function () {
+$(".ok").on('click',function () {
     //todo
     prev.trigger('click');
-    $("#searchNav").removeClass('d-none');
+});
+$("#addNewNews").on('click',function () {
+    $("#searchNav").addClass('d-none');
+    $("#neww").trigger('click');
 });
