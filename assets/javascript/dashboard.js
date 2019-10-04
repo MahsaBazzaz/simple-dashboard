@@ -73,12 +73,13 @@ let now = null;
 let prev =null;
 let theActiveElement = null;
 $(function () {
-    $('.nav-tabs li:first-child a').tab('show')
+    $('.nav-tabs li:first-child a').tab('show');
+    whichTab = 0;
 });
 
 $('.nav-tabs a').on('shown.bs.tab', function (event) {
     $("#searchString").val("");
-    $(".tab-content div a").removeClass('active');
+    $(".tab-content div div a").removeClass('active');
     now = $(event.target).text();// active tab
     prev = $(event.relatedTarget);
     if (now === "خبرها") {
@@ -87,17 +88,17 @@ $('.nav-tabs a').on('shown.bs.tab', function (event) {
             newsListGenerator(myItems))
     } else if (now === "تایید تحلیل ها") {
         whichTab = 1;
-        $("#analysis").append(
+        $("#analysis div").html(
             analysisListGenerator(Analysis)
         );
     } else if (now === "تایید اینستاگرام") {
         whichTab = 2;
-        $("#instagram").append(
+        $("#instagram div").html(
             instaTeleListGenerator(Insta)
         );
     } else if (now === "تایید تلگرام") {
         whichTab = 3;
-        $("#telegram").append(
+        $("#telegram div").html(
             instaTeleListGenerator(Tele)
         );
     }
@@ -121,6 +122,7 @@ function newsListGenerator(items) {
         "<div class=\"modal-content\">" +
         "<div class=\"modal-body\">آیا از خذف اطمینان دارید؟</div>" +
         "<div class=\"modal-footer\">" +
+        "<button type=\"button\" class=\"btn btn-success\" data-dismiss=\"modal\">انصراف</button>"+
         "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">بله</button></div></div></div></div>";
     HTML += "</div>";
     return HTML;
@@ -164,13 +166,12 @@ function instaTeleListGenerator(items) {
     HTML += "</div>";
     return HTML;
 }
-//id='listNewsItemNumber"+ i + "'
 //SEARCH
 $(document).ready(function(){
     $("#searchString").on("keyup", function() {
         let value = $(this).val().toLowerCase();
         let where = ".list" + whichTab;
-        $( where + " li").filter(function() {
+        $(where + " a").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
@@ -189,7 +190,7 @@ $(".tab-content #news").on('click','div a input.btn-success',function () {
 
 $(".tab-content #news").on('click','.modal .btn-danger',function () {
     myItems.splice(theActiveElement.split("i").pop(),1);
-    $('.nav-tabs a').trigger('shown.bs.tab');
+    $("#news div").html(newsListGenerator(myItems));
 });
 
 $("#cancel").on('click',function () {
