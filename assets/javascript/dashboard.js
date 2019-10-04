@@ -98,9 +98,9 @@ $('.nav-tabs a').on('shown.bs.tab', function (event) {
 });
 
 function newsListGenerator(items) {
-    let HTML = "<ul class='list0 list-group text-right'>";
+    let HTML = "<div class='list0 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
-        HTML += "<li class='list-group-item'>";
+        HTML += "<a class='list-group-item list-group-item-action'>";
         let tmp = items[i];
         HTML += "id:" + tmp.id +"<p></p>";
         HTML += "title:" + tmp.title +"<p></p>";
@@ -108,11 +108,11 @@ function newsListGenerator(items) {
         HTML += "text:" + tmp.text+"<p></p>";
         HTML += "<input type=\"button\" class=\"btn btn-success float-left\" value=\"ویرایش\">";
         HTML += "<input type=\"button\" class=\"btn btn-danger float-left\" value=\"حذف\">";
-        HTML += "</li>";
+        HTML += "</a>";
 
         $("")
     }
-    HTML += "</ul>";
+    HTML += "</div>";
     return HTML;
 }
 function analysisListGenerator(items) {
@@ -155,7 +155,7 @@ function instaTeleListGenerator(items) {
     return HTML;
 }
 //id='listNewsItemNumber"+ i + "'
-
+//SEARCH
 $(document).ready(function(){
     $("#searchString").on("keyup", function() {
         let value = $(this).val().toLowerCase();
@@ -164,5 +164,11 @@ $(document).ready(function(){
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
+});
+
+$(".tab-content #news").on('click', 'div a', function () {
+    $(this).siblings().removeClass('active');
+    $(this).toggleClass('active');
+    // $("#edit-news").toggleClass('d-none');
 });
 
