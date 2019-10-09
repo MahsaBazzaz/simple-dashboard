@@ -3,25 +3,19 @@ myItems = [
         id: 1,
         title: "first news",
         image: "./assets/img/1.jpg",
-        text: "این متن خبر اول است"
+        text: "text1"
     },
     {
         id: 2,
         title: "second news",
-        image: "./assets/img/2.png",
-        text: "این متن خبر دوم است"
+        image: "./assets/img/2.jpg",
+        text: "text2"
     },
     {
         id: 3,
         title: "third news",
-        image: "./assets/img/3.png",
-        text: "این متن خبر سوم است"
-    },
-    {
-        id: 4,
-        title: "fourth news",
-        image: "./assets/img/4.png",
-        text: "این متن خبر چهارم است"
+        image: "./assets/img/3.jpg",
+        text: "text3"
     },
 ];
 Analysis =[
@@ -31,32 +25,12 @@ Analysis =[
         score : "100",
         text : "Mahsa says",
     },
-    {
-        userName : "Vahid",
-        title : "Vahid opinion",
-        score : "0",
-        text : "Vahid says",
-    },
-    {
-        userName : "Maryam",
-        title : "Maryam opinion",
-        score : "50",
-        text : "Maryam says",
-    }
 ];
 Insta =[
     {
         userName : "Mahsa2",
         userId : "MahsaBazzaz",
     },
-    {
-        userName : "Vahid2",
-        userId : "VaidBazzaz"
-    },
-    {
-        userName : "Maryam2",
-        userId : "MaryamOstadi"
-    }
 ];
 
 Tele =[
@@ -64,15 +38,14 @@ Tele =[
         userName : "Mahsa",
         userId : "MahsaBazzaz1",
     },
-    {
-        userName : "Vahid",
-        userId : "VaidBazzaz1"
-    },
-    {
-        userName : "Maryam",
-        userId : "MaryamOstadi1"
-    }
 ];
+function newItem(id, title, image, text) {
+    this.id = id;
+    this.title = title;
+    this.image = image;
+    this.text = text;
+
+}
 ///////////////////////////////////////////////////////////////////////
 let whichTab = null;
 let now = null;
@@ -193,11 +166,6 @@ $(".tab-content").on('click', 'div a', function () {
     $(this).toggleClass('active');
 });
 
-$(".tab-content #news").on('click','div a input.btn-success',function () {
-    $("#searchNav").addClass('d-none');
-    $("#eddit").trigger('click');
-});
-
 $(".tab-content #news").on('click','.modal .btn-danger',function () {
     myItems.splice(theActiveElement.split("i").pop(),1);
     $("#news div").html(newsListGenerator(myItems));
@@ -211,7 +179,30 @@ $(".ok").on('click',function () {
     //todo
     prev.trigger('click');
 });
-$("#addNewNews").on('click',function () {
+
+$(".tab-content #news").on('click','div a input.btn-success',function () {
+    let parent = $(this).parent().text();
+    console.log(parent);
+    parent = parent.split("id:")[1];
+    let tmp1 = parent.split("title:")[0];
+    parent = parent.split("title:")[1];
+    let tmp2 = parent.split("image:")[0];
+    parent = parent.split("image:")[1];
+    let tmp3 = parent.split("text:")[0];
+    let tmp4 = parent.split("text:")[1];
+
+     let i = new newItem(tmp1,tmp2,tmp3,tmp4);
+
+    $("#edit-news input#id").val(i.id);
+    $("#edit-news input#title").val(i.title);
+    $("#edit-news input#image").val(i.image);
+    $("#edit-news input#news-text").val(i.text);
     $("#searchNav").addClass('d-none');
-    $("#neww").trigger('click');
+    $("#eddit").trigger('click');
 });
+
+$("#addNewNews").on('click',function () {
+    $("#neww").trigger('click');
+    $("#searchNav").addClass('d-none');
+});
+
