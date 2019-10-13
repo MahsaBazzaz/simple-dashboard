@@ -18,38 +18,32 @@ myItems = [
         text: "text3"
     },
 ];
-Analysis =[
+Analysis = [
     {
-        userName : "Mahsa",
-        title : "Mahsa opinion",
-        score : "100",
-        text : "Mahsa says",
+        userName: "Mahsa",
+        title: "Mahsa opinion",
+        score: "100",
+        text: "Mahsa says",
     },
 ];
-Insta =[
+Insta = [
     {
-        userName : "Mahsa2",
-        userId : "MahsaBazzaz",
+        userName: "Mahsa2",
+        userId: "MahsaBazzaz",
     },
 ];
 
-Tele =[
+Tele = [
     {
-        userName : "Mahsa",
-        userId : "MahsaBazzaz1",
+        userName: "Mahsa",
+        userId: "MahsaBazzaz1",
     },
 ];
-function newItem(id, title, image, text) {
-    this.id = id;
-    this.title = title;
-    this.image = image;
-    this.text = text;
 
-}
 ///////////////////////////////////////////////////////////////////////
 let whichTab = null;
 let now = null;
-let prev =null;
+let prev = null;
 let theActiveElement = null;
 $(function () {
     $('.nav-tabs li:last-child a').tab('show');
@@ -90,12 +84,12 @@ $('.nav-tabs a').on('shown.bs.tab', function (event) {
 function newsListGenerator(items) {
     let HTML = "<div class='list3 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
-        HTML += "<a id='i"+ i+ "' class='list-group-item list-group-item-action'>";
+        HTML += "<a id='i" + i + "' class='list-group-item list-group-item-action'>";
         let tmp = items[i];
-        HTML += "id:" + tmp.id +"<p></p>";
-        HTML += "title:" + tmp.title +"<p></p>";
-        HTML += "image:" + tmp.image+"<p></p>";
-        HTML += "text:" + tmp.text+"<p></p>";
+        HTML += "id:" + tmp.id + "<p></p>";
+        HTML += "title:" + tmp.title + "<p></p>";
+        HTML += "image:" + tmp.image + "<p></p>";
+        HTML += "text:" + tmp.text + "<p></p>";
         HTML += "<input type=\"button\" class=\"btn btn-success float-left\" value=\"ویرایش\">";
         HTML += "<input type=\"button\" class=\"btn btn-danger float-left\" value=\"حذف\" data-toggle='modal' data-target=\"#myModal\" data-backdrop=\"static\">";
         HTML += "</a>";
@@ -105,20 +99,21 @@ function newsListGenerator(items) {
         "<div class=\"modal-content\">" +
         "<div class=\"modal-body\">آیا از خذف اطمینان دارید؟</div>" +
         "<div class=\"modal-footer\">" +
-        "<button type=\"button\" class=\"btn btn-success\" data-dismiss=\"modal\">انصراف</button>"+
+        "<button type=\"button\" class=\"btn btn-success\" data-dismiss=\"modal\">انصراف</button>" +
         "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">بله</button></div></div></div></div>";
     HTML += "</div>";
     return HTML;
 }
+
 function analysisListGenerator(items) {
     let HTML = "<div class='list2 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
         HTML += "<a class='list-group-item list-group-item-action'>";
         let tmp = items[i];
-        HTML += "username:" + tmp.userName +"<p></p>";
-        HTML += "title:" + tmp.title +"<p></p>";
-        HTML += "score:" + tmp.score+"<p></p>";
-        HTML += "text:" + tmp.text+"<p></p>";
+        HTML += "username:" + tmp.userName + "<p></p>";
+        HTML += "title:" + tmp.title + "<p></p>";
+        HTML += "score:" + tmp.score + "<p></p>";
+        HTML += "text:" + tmp.text + "<p></p>";
         HTML += "<input type=\"button\" class=\"btn btn-success float-left\" value=\"تایید\">";
         HTML += "<input type=\"button\" class=\"btn btn-danger float-left\" value=\"رد\">";
         HTML += "</a>";
@@ -131,15 +126,15 @@ function analysisListGenerator(items) {
 
 function instaTeleListGenerator(items) {
     let HTML = null;
-    if(whichTab === 0)
+    if (whichTab === 0)
         HTML = "<div class='list0 list-group text-right'>";
-    else if(whichTab ===1)
+    else if (whichTab === 1)
         HTML = "<div class='list1 list-group text-right'>";
     for (let i = 0; i < items.length; i++) {
         HTML += "<a class='list-group-item list-group-item-action'>";
         let tmp = items[i];
-        HTML += "username:" + tmp.userName +"<p></p>";
-        HTML += "user id:" + tmp.userId+"<p></p>";
+        HTML += "username:" + tmp.userName + "<p></p>";
+        HTML += "user id:" + tmp.userId + "<p></p>";
         HTML += "<input type=\"button\" class=\"btn btn-success float-left\" value=\"تایید\">";
         HTML += "<input type=\"button\" class=\"btn btn-danger float-left\" value=\"رد\">";
         HTML += "</a>";
@@ -149,12 +144,13 @@ function instaTeleListGenerator(items) {
     HTML += "</div>";
     return HTML;
 }
+
 //SEARCH
-$(document).ready(function(){
-    $("#searchString").on("keyup", function() {
+$(document).ready(function () {
+    $("#searchString").on("keyup", function () {
         let value = $(this).val().toLowerCase();
         let where = ".list" + whichTab;
-        $(where + " a").filter(function() {
+        $(where + " a").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
@@ -166,43 +162,46 @@ $(".tab-content").on('click', 'div a', function () {
     $(this).toggleClass('active');
 });
 
-$(".tab-content #news").on('click','.modal .btn-danger',function () {
-    myItems.splice(theActiveElement.split("i").pop(),1);
+$(".tab-content #news").on('click', '.modal .btn-danger', function () {
+    myItems.splice(theActiveElement.split("i").pop(), 1);
     $("#news div").html(newsListGenerator(myItems));
 });
 
-$(".cancel").on('click',function () {
+$(".cancel").on('click', function () {
     prev.trigger('click');
 });
 
-$(".ok").on('click',function () {
-    //todo
-    prev.trigger('click');
-});
-
-$(".tab-content #news").on('click','div a input.btn-success',function () {
-    let parent = $(this).parent().text();
-    console.log(parent);
-    parent = parent.split("id:")[1];
-    let tmp1 = parent.split("title:")[0];
-    parent = parent.split("title:")[1];
-    let tmp2 = parent.split("image:")[0];
-    parent = parent.split("image:")[1];
-    let tmp3 = parent.split("text:")[0];
-    let tmp4 = parent.split("text:")[1];
-
-     let i = new newItem(tmp1,tmp2,tmp3,tmp4);
-
-    $("#edit-news input#id").val(i.id);
-    $("#edit-news input#title").val(i.title);
-    $("#edit-news input#image").val(i.image);
-    $("#edit-news input#news-text").val(i.text);
+$(".tab-content #news div").on('click', 'a input.btn-success', function () {
+    let prt = $(this).parent().text();
+    prt = prt.split("id:")[1];
+    let tmp1 = prt.split("title:")[0];
+    let n = myItems.findIndex(function (idd) {
+        return idd.id == tmp1;
+    });
+    let alan = myItems[n];
+    console.log(alan);
+    $("#edit-news input#id").val(alan.id);
+    $("#edit-news input#title").val(alan.title);
+    $("#edit-news input#image").val(alan.image);
+    $("#edit-news input#news-text").val(alan.text);
     $("#searchNav").addClass('d-none');
     $("#eddit").trigger('click');
+    // $(".tab-content #news div a input.btn-success").on('click', function () {
+    //
+    // });
+
+    $("#change").on('click',function () {
+        alan.id = $("#edit-news input#id").val();
+        alan.title = $("#edit-news input#title").val();
+        alan.image = $("#edit-news input#image").val();
+        alan.text = $("#edit-news input#news-text").val();
+        prev.trigger('click');
+    })
 });
 
-$("#addNewNews").on('click',function () {
+$("#addNewNews").on('click', function () {
     $("#neww").trigger('click');
     $("#searchNav").addClass('d-none');
 });
+
 
